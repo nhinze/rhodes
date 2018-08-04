@@ -67,6 +67,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.util.Log;
 
@@ -309,6 +310,16 @@ public class RhodesActivity extends BaseActivity implements SplashScreen.SplashS
 
         requestWindowFeature(Window.FEATURE_PROGRESS);
         getWindow().setFeatureInt(Window.FEATURE_PROGRESS, MAX_PROGRESS);
+		
+	// Disable HW ACCEL if desired. Enabled by default.
+        Logger.T(TAG, RhoConf.getString("disable_hardware_acceleration"));
+        if (RhoConf.getString("disable_hardware_acceleration").equals("1")) {
+            Logger.T(TAG, "NO HW ACCEL");
+        } else {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+            Logger.T(TAG, "HW ACCEL");
+        }
+        // End Edit
 
         mHandler = new Handler();
 
